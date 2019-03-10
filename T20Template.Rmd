@@ -1,0 +1,352 @@
+---
+title: "Analyzing T20 matches (Intl. T20, IPL, BBL and Natwest T20) with yorkpy  templates"
+author: "Tinniam V Ganesh"
+date: "March 4, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##1.  Introduction
+
+In this post I create yorkpy templates for end-to-end analysis of any  T20 matches that are available on [Cricsheet](http://cricsheet.org/ ) as yaml format. These templates can be used to analyze Intl. T20, IPL, BBL and Natwest T20. In fact they can be used for any T20 games which have been saved in the yaml format as specified by Cricsheet [Cricheet](https://cricsheet.org/). 
+
+*Note*: **yorkpy** is the clone of my R package **yorkr** see [yorkr pads up for the Twenty20s: Part 1- Analyzing team”s match performance](https://gigadom.in/2016/04/16/yorkr-pads-up-for-the-twenty20s-part-1-analyzing-teams-match-performance/)
+
+With these templates you can convert all T20 match data which is in yaml format to Pandas  dataframes and save them as CSV. **Note** The data for Intl T20, IPL, BBL and Natwest T20 have already been converted and are available at [allYorkpyData](https://github.com/tvganesh/allYorkpyT20Data). This templates is also available at  Github at \ at [yorkpyTemplate](https://github.com/tvganesh/yorkrIPLTemplate).  The template includes the following steps 
+
+
+1. Template for conversion and setup 
+2. Analysis of Any T20  match 
+3. Analysis of a T20 team in all matches against another T20 team
+4. Analysis of a T20 team in all matches against all other teams
+4. Analysis of T20 batsmen and bowlers 
+
+You can recreate the files as more matches are added to Cricsheet site in IPL 2017 and future seasons.  This post contains all the steps needed for detailed analysis of IPL matches, teams and IPL player. This will also be my reference in future if I decide to analyze IPL in future!
+
+Install yorkpy with **pip install yorkpy**
+
+Data conversion of the yaml files have to be done before any  analysis of T20 batsmen, bowlers, any T20 match matches between any 2 T20 team or analysis of a teams performance against all other team can be done
+
+The first step is To convert the YAML files that are available for the different T20 leagues namely Intl. T20, IPL, BBL, Natwest T20 which are available in yaml format in [Cricsheet](http://cricsheet.org/ ). For initial data setup we need to use slighly different functions for each of the T20 leagues since the teams are different. The function to convert yaml to Pandas dataframe and save as CSV is common for all leagues
+
+## A.  For International T20
+```{python }
+import yorkpy.analytics as yka
+# COnvert yaml to pandas and save as CSV
+#yka.convertAllYaml2PandasDataframesT20(".", "..\\data1")
+
+# Save all matches between any 2 Intl T20 countries
+#yka.saveAllMatchesBetween2IntlT20s(dir1)
+
+#Save all matches between an Intl.T20 country and all other countries
+#yka.saveAllMatchesAllOppositionIntlT20(dir1)
+
+# Get batting details for a country
+#yka.getTeamBattingDetails(<country>,dir=dir1, save=True)
+
+#Get bowling details
+#yka.getTeamBowlingDetails(<country>,dir=dir1, save=True)
+```
+
+
+## B.  For Indian Premier League (IPL)
+```{python }
+import yorkpy.analytics as yka
+# COnvert yaml to pandas and save as CSV
+#yka.convertAllYaml2PandasDataframesT20(".", "..\\data1")
+
+# Save all matches between any 2 IPL teams
+#yka.saveAllMatchesBetween2IPLTeams(dir1)
+
+#Save all matches between an IPL team and all other teams
+#yka.saveAllMatchesAllOppositionIPLT20(dir1)
+
+# Get batting details for an IPL team
+#yka.getTeamBattingDetails(<team1>,dir=dir1, save=True)
+
+#Get bowling details for an IPL team
+#yka.getTeamBowlingDetails(<team1>>,dir=dir1, save=True)
+```
+
+
+
+## C.  For Big Bash League (BBL)
+```{python }
+import yorkpy.analytics as yka
+# COnvert yaml to pandas and save as CSV
+#yka.convertAllYaml2PandasDataframesT20(".", "..\\data1")
+
+# Save all matches between any 2 BBL teams
+#yka.saveAllMatchesBetween2BBLTeams(dir1)
+
+#Save all matches between an BBL team and all other teams
+#yka.saveAllMatchesAllOppositionBBLT20(dir1)
+
+# Get batting details for an BBL team
+#yka.getTeamBattingDetails(<team1>,dir=dir1, save=True)
+
+#Get bowling details for an BBL team
+#yka.getTeamBowlingDetails(<team1>>,dir=dir1, save=True)
+```
+
+
+
+##D For Natwest T20 
+```{python }
+import yorkpy.analytics as yka
+# COnvert yaml to pandas and save as CSV
+#yka.convertAllYaml2PandasDataframesT20(".", "..\\data1")
+
+# Save all matches between any 2 NWB teams
+#yka.saveAllMatchesBetween2NWBTeams(dir1)
+
+#Save all matches between an NWB team and all other teams
+#yka.saveAllMatchesAllOppositionNWBT20(dir1)
+
+# Get batting details for an NWB team
+#yka.getTeamBattingDetails(<team1>,dir=dir1, save=True)
+
+#Get bowling details for an NWB team
+#yka.getTeamBowlingDetails(<team1>>,dir=dir1, save=True)
+```
+
+
+Once the conversion has been done and the data has been setup we can use any of the yorkpy functions for the the 4 leagues (Intl. T20, IPL, BBL or Natwest T20)
+There are four classes of functions. These functions can be used for any of the 
+
+1. Class 1 - Functions that analyze a single T20 match
+2. Class 2 - Functions that analyze the performance of a T20 team in all matches against another T20 team
+3. Class 3 - Functions that analyze the performance of a T20 team against all other teams
+4. Class 4 - Functions that analyze individual T20 batsmen or bowler
+
+
+##2.  Class 1 functions
+These functions analyze a single T20 match (Intl T20, BBL, IPL or Natwest T20)
+To see actual usage of Class 1 function see [Pitching yorkpy … short of good length to IPL – Part 1](https://gigadom.in/2018/12/28/pitching-yorkpy-short-of-good-length-to-ipl-part-1/)
+```{python}
+import yorkpy.analytics as yka
+# Get scorecard
+#scorecard,extras=yka.teamBattingScorecardMatch(<team1>,"Name of Team")
+
+#Get partnership
+#match=pd.read_csv("<match.csv>")
+#yka.teamBatsmenPartnershipMatch(match,<team1>,<team2>,plot=True/False)
+
+#Batsmen vs bowler
+#match=pd.read_csv("<match.csv>")
+#yka.teamBatsmenVsBowlersMatch(match,<team1>,<team2>,plot=True/False)
+
+#Bowling scorecard
+#match=pd.read_csv("<match.csv>")
+#a=yka.teamBowlingScorecardMatch(match,<team1>)
+
+#Wicket Kind
+#match=pd.read_csv("<match.csv>")
+#yka.teamBowlingWicketKindMatch((match,<team1>,<team2>)
+
+#Wicket Match
+#match=pd.read_csv("<match.csv>")
+#yka.teamBowlingWicketMatch(match,<team1>,<team2>,plot=True/False)
+
+#Bowler vs Batsman
+#match=pd.read_csv("<match.csv>")
+#yka.teamBowlersVsBatsmenMatch(match,<team1>,<team2>)
+
+#Match worm chart
+#match=pd.read_csv("<match.csv>")
+#yka.matchWormChart(match,<team1>,<team2>,)
+
+```
+
+
+##3.  Class 2 functions
+These set of functions analyze the performance a T20 team for e.g. Intl T20, BBL or Natwest T20  in all matches against another T20 team (country or IPL, BBL or Natwest T20 team. To see usages of Class 2 functions see [Pitching yorkpy…on the middle and outside off-stump to IPL – Part 2](https://gigadom.in/2019/01/27/pitching-yorkpyon-the-middle-and-outside-off-stump-to-ipl-part-2/)
+
+```{python}
+import yorkpy.analytics as yka
+
+# Batting partnerships - Table
+#team1_team2_matches = pd.read_csv(<matches_between_2_teams.csv)
+#m=yka.teamBatsmenPartnershiOppnAllMatches(team1_team2_matches,<team1/team2>,report="summary/detailed", top=<n>)
+
+# Batting partnerships - Plot
+#team1_team2_matches = pd.read_csv(<matches_between_2_teams.csv)
+#yka.teamBatsmenPartnershipOppnAllMatchesChart(team1_team2_matches,<team1>,<team2> plot=<True/False>, top=<N>, partnershipRuns=<M>)
+
+#Batsmen vs Bowlers
+#team1_team2_matches = pd.read_csv(<matches_between_2_teams.csv)
+#yka.teamBatsmenVsBowlersOppnAllMatches(team1_team2_matches,<team1>,<team2> plot=<True/False>, top=<N>,runsScored=<M>)
+
+# Batting scorecard
+#team1_team2_matches = pd.read_csv(<matches_between_2_teams.csv)
+#scorecard=yka.teamBattingScorecardOppnAllMatches(team1_team2_matches,<team1>,<team2>)
+
+#Bowling scorecard
+#team1_team2_matches = pd.read_csv(<matches_between_2_teams.csv)
+#scorecard=yka.teamBowlingScorecardOppnAllMatches(team1_team2_matches,<team1>,<team2>)
+
+#Bowling wicket kind
+#team1_team2_matches = pd.read_csv(<matches_between_2_teams.csv)
+#yka.teamBowlingWicketKindOppositionAllMatches(team1_team2_matches,<team1>,<team2>,plot=<True/False>,top=<N>,wickets=<M>)
+
+#Bowler vs batsman
+#team1_team2_matches = pd.read_csv(<matches_between_2_teams.csv)
+#yka.teamBowlersVsBatsmenOppnAllMatches(team1_team2_matches,<team1>,<team2>,plot=<True/False>,top=<N>,runsConceded=<M>)
+
+# Wins vs losses
+#team1_team2_matches = pd.read_csv(<matches_between_2_teams.csv)
+#yka.plotWinLossBetweenTeams(team1_team2_matches,<team1>,<team2>)
+
+#Wins by win type
+#team1_team2_matches = pd.read_csv(<matches_between_2_teams.csv)
+#yka.plotWinsByRunOrWickets(team1_team2_matches,<team1>)
+
+#Wins by toss decision
+#team1_team2_matches = pd.read_csv(<matches_between_2_teams.csv)
+#yka.plotWinsbyTossDecision(team1_team2_matches,<team1>,tossDecision=<field/bat>)
+
+
+```
+
+
+##4.  Class 3 functions
+This set of functions deals with analyzing the performance of a T20 team (Intl. T20, IPL, BBL or Natwest T20) in all matches against all other teams. To see usages of Class 3 functions see [Pitching yorkpy…swinging away from the leg stump to IPL – Part 3](https://gigadom.in/2019/02/03/pitching-yorkpyswinging-away-from-the-leg-stump-to-ipl-part-3/). After the data is save all matches between all oppositions we can use this data
+
+```{python}
+import yorkpy.analytics as yka
+#Batsman partnerships
+#allmatches = pd.read_csv("<allmatchesForteam")
+#m=yka.teamBatsmenPartnershiAllOppnAllMatches(allmatches,<team1>,report=<"summary"/"detailed", top=<N>,partnershipRuns=<M>)
+
+#Batsmen vs Bowlers
+#allmatches = pd.read_csv("<allmatchesForteam")
+#yka.teamBatsmenVsBowlersAllOppnAllMatches(allmatches,<team1>,plot=<True/False>,top=N>,runsScored=<M>)
+
+#Batting scorecard
+#allmatches = pd.read_csv("<allmatchesForteam")
+#scorecard=yka.teamBattingScorecardAllOppnAllMatches(allmatches,<team1>)
+
+#Bowling scorecard
+#allmatches = pd.read_csv("<allmatchesForteam")
+#scorecard=yka.teamBowlingScorecardAllOppnAllMatches(allmatches,<team1>)
+
+#Bowling wicket kind
+#allmatches = pd.read_csv("<allmatchesForteam")
+#yka.teamBowlingWicketKindAllOppnAllMatches(allmatches,<team1>,plot=<True/False>,top=<N>,wickets=<M>)
+
+# Bowler vs Batsmen
+#allmatches = pd.read_csv("<allmatchesForteam")
+#yka.teamBowlersVsBatsmenAllOppnAllMatches(allmatches,<team1>,plot=<True/False>,top=<N>,runsConceded=<M>)
+
+# Wins vs losses
+#allmatches = pd.read_csv("<allmatchesForteam")
+#yka.plotWinLossByTeamAllOpposition(allmatches,<team1>,plot=<"summary"/"detailed">)
+
+# Wins by win type
+#allmatches = pd.read_csv("<allmatchesForteam")
+#yka.plotWinsByRunOrWicketsAllOpposition(allmatches,<team1>)
+
+# Wins by toss decision
+#allmatches = pd.read_csv("<allmatchesForteam")
+#yka.plotWinsbyTossDecisionAllOpposition(allmatches,<team1>,tossDecision='bat'/'field',plot='summary'/'detailed')
+```
+
+
+
+##5.  Class 4 functions
+
+This set of functions are used for analyzing individual batsman/bowler. From the converted xxx-BattingDetails.csv and xxx-BowlingDetails.csv we can get the batsman and bowler details as shown below. Subsequenly we can perform analyses of the individual batsman and bowler. To see actual usages of Class 4 functions see [Pitching yorkpy … in the block hole – Part 4](https://gigadom.in/2019/02/26/pitching-yorkpy-in-the-block-hole-part-4/)
+
+```{python}
+import yorkpy.analytics as yka
+
+#Batsman analyses
+#Get batsman Dataframe
+#batsmanDF=yka.getBatsmanDetails(<team1>,<batsman>,dir=dir1)
+
+#Batsman Runs vs Deliveries
+#yka.batsmanRunsVsDeliveries(batsmanDF,<batsmanName>)
+
+#Batsman fours and sixes
+#yka.batsmanFoursSixes(batsmanDF,<batsmanName>)
+
+
+#Batsman dismissals
+#yka.batsmanDismissals(batsmanDF,<batsmanName>)
+
+#Batsman Runs vs Strike Rate
+#yka.batsmanRunsVsStrikeRate(batsmanDF,<batsmanName>)
+
+#Batsman Moving average
+#yka.batsmanMovingAverage(batsmanDF,<batsmanName>)
+
+
+#Batsman Cumulative average
+#yka.batsmanCumulativeAverageRuns(batsmanDF,<batsmanName>)
+
+#Batsman Cumulative Strike rate
+#yka.batsmanCumulativeStrikeRate(batsmanDF,<batsmanName>)
+
+#Batsman Runs against opposition
+#yka.batsmanRunsAgainstOpposition(batsmanDF,<batsmanName>)
+
+#Batsman Runs against opposition
+#yka.batsmanRunsVenue(batsmanDF,<batsmanName>)
+
+
+#Bowler analyses
+#Get bowler dataframe
+#bowlerDF=yka.getBowlerWicketDetails(<team1>,<bowler>dir=dir1)
+
+#Mean economy rate
+#yka.bowlerMeanEconomyRate(bowlerDF,<bowlerName>)
+
+
+#Mean Economy rate
+#yka.bowlerMeanEconomyRate(bowlerDF,<bowlerName>)
+
+#Mean Runs conceded
+#yka.bowlerMeanRunsConceded(bowlerDF,<bowlerName>)
+
+#Moving average of wickets
+#yka.bowlerMovingAverage((bowlerDF,<bowlerName>)
+
+# Cumulative average of wickets
+#yka.bowlerCumulativeAvgWickets(bowlerDF,<bowlerName>)
+
+# Cumulative economy rate
+#yka.bowlerCumulativeAvgEconRate(bowlerDF,<bowlerName>)
+
+# Wicket plot
+#yka.bowlerWicketPlot(df,name)
+
+# Wicket against opposition
+#yka.bowlerWicketsAgainstOpposition(bowlerDF,<bowlerName>)
+
+# Wickets at venue
+#yka.bowlerWicketsVenue(bowlerDF,<bowlerName>)
+
+
+```
+
+
+## Conclusion
+With the above templates detailed analyis can be done on
+
+- A T20 match
+- Performance of a team in all matches against another team
+- Performance of a team in all matches against all other teams
+- Individual batting and bowling performances
+
+See also
+
+1. [Deep Learning from first principles in Python, R and Octave – Part 5](https://gigadom.in/2018/03/23/deep-learning-from-first-principles-in-python-r-and-octave-part-5/)
+2. [My travels through the realms of Data Science, Machine Learning, Deep Learning and (AI)](https://gigadom.in/2017/09/11/my-travels-through-the-realms-of-data-science-machine-learning-deep-learning-and-ai/)
+3. [Practical Machine Learning with R and Python – Part 4](https://gigadom.in/2017/10/29/practical-machine-learning-with-r-and-python-part-4/)
+4. [Take 4+: Presentations on ‘Elements of Neural Networks and Deep Learning’ – Parts 1-8](https://gigadom.in/2019/02/16/take-4-presentations-on-elements-of-neural-networks-and-deep-learning-parts-1-8/)
+5. [A method to crowd source pothole marking on (Indian) roads](https://gigadom.in/2013/12/11/a-method-to-crowd-source-pothole-marking-on-indian-roads/)
+
+To see all posts click [Index of posts][https://gigadom.in/aa-2/]

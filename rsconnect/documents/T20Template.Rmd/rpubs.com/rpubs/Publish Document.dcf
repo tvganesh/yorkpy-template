@@ -1,0 +1,10 @@
+name: Publish Document
+title:
+username:
+account: rpubs
+server: rpubs.com
+hostUrl: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/474784/edddbc1e5dbb42dc8f843815986ff67b
+bundleId: https://api.rpubs.com/api/v1/document/474784/edddbc1e5dbb42dc8f843815986ff67b
+url: http://rpubs.com/tvganesh/474784
+when: 1552213250.60739
